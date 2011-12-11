@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var isVisible = false;
+
+      var makeMutable = function(tab){
+        var splitUrl = tab.url.split("#"),
+            root = splitUrl[0],
+            label = splitUrl[1].split("label/")[1],
+            mutableUrl = root+'#search/label%3A'+label+'+-in%3Aspam';
+        chrome.tabs.update(tab.id, {url: mutableUrl});
+      };
+
+      var validateUrl = function(tabId, changeInfo, tab){
+        if (tab.url.match('^https?://mail.google.com/mail/u/[0-9]/#label/')) {
+          if (!isVisible) {
+            chrome.pageAction.show(tabId);
+            chrome.pageAction.onClicked.addListener(makeMutable);
+            isVisible = true;
+          }
+        } else {
+          if (isVisible) {
+            chrome.pageAction.hide(tabId);
+            isVisible = false;
+          }
+        }
+      };
+
+      // Listen for any changes to the URL of any tab.
+      chrome.tabs.onUpdated.addListener(validateUrl);
+    </script>
+  </head>
+</html>
