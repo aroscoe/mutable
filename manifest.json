@@ -1,18 +1,18 @@
 {
     "name": "Mutable",
     "version": "1.0",
-    "description": "Make labeled emails in Gmail mutable.",
+    "description": "Make emails filtered by label mutable in Gmail.",
     "background_page": "background.html",
     "page_action": {
-        "default_icon": "icon.png",
-        "default_title": "Make email mutable."
+        "default_icon": "icon_16.png",
+        "default_title": "Make emails mutable."
     },
     "permissions": [
         "tabs"
-    ]
-    // "icons" : {
-    //     "48" : "icon-48.png",
-    //     "128" : "icon-128.png"
-    // },
-    // "content_security_policy": "default-src 'self'"
+    ],
+    "icons": {
+        "16": "icon_16.png",
+        "48" : "icon_48.png",
+        "128" : "icon_128.png"
+    }
 }
