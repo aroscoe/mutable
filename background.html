@@ -2,8 +2,6 @@
 <html>
   <head>
     <script>
-      var isVisible = false;
-
       var makeMutable = function(tab){
         var splitUrl = tab.url.split("#"),
             root = splitUrl[0],
@@ -13,17 +11,11 @@
       };
 
       var validateUrl = function(tabId, changeInfo, tab){
-        if (tab.url.match('^https?://mail.google.com/mail/u/[0-9]/#label/')) {
-          if (!isVisible) {
-            chrome.pageAction.show(tabId);
-            chrome.pageAction.onClicked.addListener(makeMutable);
-            isVisible = true;
-          }
+        if (tab.url.match('^https?://mail.google.com/mail/u/[0-9]/[^#]*#label/')) {
+          chrome.pageAction.show(tabId);
+          chrome.pageAction.onClicked.addListener(makeMutable);
         } else {
-          if (isVisible) {
-            chrome.pageAction.hide(tabId);
-            isVisible = false;
-          }
+          chrome.pageAction.hide(tabId);
         }
       };
 
